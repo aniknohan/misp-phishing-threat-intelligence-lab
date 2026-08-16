@@ -1,20 +1,31 @@
-# MISP Phishing Threat Intelligence Lab
+# MISP Phishing Threat Intelligence Investigation
 
-![MISP](https://img.shields.io/badge/MISP-Threat%20Intelligence-blue)
-![MITRE ATT&CK](https://img.shields.io/badge/MITRE%20ATT%26CK-Spearphishing-red)
-![SOC](https://img.shields.io/badge/SOC-Blue%20Team-blue)
-![Threat Intelligence](https://img.shields.io/badge/Threat%20Intelligence-CTI-purple)
-![Status](https://img.shields.io/badge/Investigation-Completed-success)
+![MISP](https://img.shields.io/badge/Platform-MISP-blue)
+![MITRE ATT&CK](https://img.shields.io/badge/Framework-MITRE%20ATT%26CK-red)
+![Threat Intelligence](https://img.shields.io/badge/Focus-Threat%20Intelligence-orange)
+![SOC](https://img.shields.io/badge/Role-SOC%20%2F%20CTI%20Analyst-green)
+![Lab](https://img.shields.io/badge/Environment-Simulated-lightgrey)
 
-## Overview
+> A hands-on cyber threat intelligence investigation demonstrating phishing IOC analysis, MISP object modeling, indicator correlation, IOC validation, and MITRE ATT&CK mapping.
 
-This project demonstrates a hands-on **SOC / Cyber Threat Intelligence investigation using MISP (Malware Information Sharing Platform)**.
+---
 
-A simulated credential-harvesting phishing scenario was investigated by collecting and structuring network and file-based Indicators of Compromise (IOCs), modeling infrastructure relationships, enabling correlation, mapping adversary behavior to MITRE ATT&CK, and validating the indicators through MISP search.
+## Project Overview
 
-The project demonstrates how a SOC or CTI analyst can transform isolated technical artifacts into **structured, searchable, and contextualized threat intelligence**.
+This project documents a simulated phishing threat intelligence investigation conducted using MISP (Malware Information Sharing Platform).
 
-> **Lab Safety Notice:** All indicators in this project are simulated or documentation-range artifacts created exclusively for defensive cybersecurity training. No live malicious infrastructure was used.
+The investigation demonstrates how a SOC or Cyber Threat Intelligence (CTI) analyst can transform isolated technical indicators into structured, correlated, and actionable threat intelligence.
+
+The workflow includes:
+
+- Identification and documentation of phishing-related indicators of compromise (IOCs)
+- Structured IOC management within MISP
+- Domain-to-IP relationship modeling using MISP objects
+- IOC correlation and validation
+- MITRE ATT&CK mapping
+- Analyst assessment and investigation documentation
+
+> **Lab Safety Notice:** All indicators used in this project are simulated or documentation-range artifacts created exclusively for defensive cybersecurity training. No live malicious infrastructure was used.
 
 ---
 
