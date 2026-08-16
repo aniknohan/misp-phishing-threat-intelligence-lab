@@ -28,6 +28,25 @@ The workflow includes:
 > **Lab Safety Notice:** All indicators used in this project are simulated or documentation-range artifacts created exclusively for defensive cybersecurity training. No live malicious infrastructure was used.
 
 ---
+## Investigation Documentation
+
+Detailed analysis and supporting documentation are organized into the following investigation phases:
+
+| Phase | Documentation | Focus |
+|---|---|---|
+| 01 | [Investigation Overview](docs/01-investigation-overview.md) | Scenario, objectives, scope, and investigation methodology |
+| 02 | [IOC Analysis](docs/02-ioc-analysis.md) | Analysis of domain, IP address, URL, and SHA-256 indicators |
+| 03 | [MISP Object Modeling](docs/03-misp-object-modeling.md) | Structured domain-to-IP relationship modeling in MISP |
+| 04 | [MITRE ATT&CK Mapping](docs/04-mitre-attack-mapping.md) | Mapping phishing activity to Spearphishing Link (T1192) |
+| 05 | [IOC Validation](docs/05-ioc-validation.md) | MISP searches used to validate and correlate recorded indicators |
+| 06 | [Analyst Conclusion](docs/06-analyst-conclusion.md) | Final assessment, findings, and defensive recommendations |
+
+### Investigation Workflow
+
+`Phishing Scenario` → `IOC Identification` → `MISP Event Creation` → `Object Modeling` → `IOC Correlation` → `MITRE ATT&CK Mapping` → `IOC Validation` → `Analyst Assessment`
+
+---
+
 
 ## Investigation Scenario
 
