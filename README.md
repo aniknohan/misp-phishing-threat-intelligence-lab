@@ -1,366 +1,293 @@
-# MISP Phishing Threat Intelligence Investigation
+# MISP Phishing Threat Intelligence Lab
+
+![MISP](https://img.shields.io/badge/MISP-Threat%20Intelligence-blue)
+![MITRE ATT&CK](https://img.shields.io/badge/MITRE%20ATT%26CK-Spearphishing-red)
+![SOC](https://img.shields.io/badge/SOC-Blue%20Team-blue)
+![Threat Intelligence](https://img.shields.io/badge/Threat%20Intelligence-CTI-purple)
+![Status](https://img.shields.io/badge/Investigation-Completed-success)
 
 ## Overview
 
-This project demonstrates a simulated Security Operations Center (SOC) threat intelligence investigation using **MISP (Malware Information Sharing Platform)**.
+This project demonstrates a hands-on **SOC / Cyber Threat Intelligence investigation using MISP (Malware Information Sharing Platform)**.
 
-The investigation focuses on suspicious phishing infrastructure associated with a simulated credential-harvesting campaign. Indicators of Compromise (IOCs) were documented, structured, correlated, mapped to MITRE ATT&CK, and validated using MISP.
+A simulated credential-harvesting phishing scenario was investigated by collecting and structuring network and file-based Indicators of Compromise (IOCs), modeling infrastructure relationships, enabling correlation, mapping adversary behavior to MITRE ATT&CK, and validating the indicators through MISP search.
 
-The objective was to demonstrate how a SOC analyst can transform raw indicators into structured and searchable threat intelligence that can support detection, correlation, threat hunting, and incident response.
+The project demonstrates how a SOC or CTI analyst can transform isolated technical artifacts into **structured, searchable, and contextualized threat intelligence**.
 
-> **Lab Safety Notice**
->
-> All indicators used in this project are simulated or documentation-range values created for educational purposes. They should not be interpreted as active malicious infrastructure.
+> **Lab Safety Notice:** All indicators in this project are simulated or documentation-range artifacts created exclusively for defensive cybersecurity training. No live malicious infrastructure was used.
 
 ---
 
 ## Investigation Scenario
 
-A SOC investigation identified infrastructure associated with a simulated phishing campaign designed to direct a victim to a credential-harvesting page.
+The simulated investigation centered on phishing infrastructure designed to represent an account-verification credential-harvesting campaign.
 
-The investigation identified several artifacts requiring threat-intelligence documentation:
+Four primary indicators were analyzed:
 
-- Suspicious domain
-- Destination IP address
-- Credential-harvesting URL
-- SHA-256 attachment hash
+| IOC Type | Indicator | MISP Type |
+|---|---|---|
+| Domain | `secure-login-support.com` | `domain` |
+| Destination IP | `198.51.100.23` | `ip-dst` |
+| URL | `http://secure-login-support.com/account/verify` | `url` |
+| File Hash | `275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f` | `sha256` |
 
-These indicators were entered into MISP and correlated within a structured investigation event.
+The investigation was maintained as:
 
----
-
-## Investigation Objectives
-
-The objectives of this lab were to:
-
-- Create and manage a MISP investigation event
-- Document Indicators of Compromise
-- Categorize indicators using appropriate MISP attribute types
-- Enable IOC correlation
-- Model relationships between infrastructure indicators
-- Map observed behavior to MITRE ATT&CK
-- Validate indicators using MISP search functionality
-- Produce analyst-ready threat intelligence documentation
-
----
-
-## Lab Environment
-
-| Component | Purpose |
-|---|---|
-| MISP | Threat intelligence and IOC management |
-| Web Browser | MISP administration and investigation |
-| MITRE ATT&CK | Adversary behavior classification |
-| Isolated Lab Environment | Safe investigation environment |
-
----
-
-## Indicators of Compromise
-
-| Indicator | Type | MISP Category | Purpose |
-|---|---|---|---|
-| `secure-login-support.com` | Domain | Network activity | Simulated phishing infrastructure |
-| `198.51.100.23` | Destination IP | Network activity | Documentation-range destination address |
-| `http://secure-login-support.com/account/verify` | URL | Network activity | Simulated credential-harvesting URL |
-| `275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f` | SHA-256 | Payload delivery | Simulated malicious attachment hash |
-
-The IP address `198.51.100.23` belongs to the TEST-NET-2 documentation range and is used here strictly for laboratory purposes.
+```text
+Event:        SOC Investigation - Suspicious Phishing Infrastructure
+Threat Level: Medium
+Analysis:     Completed
+```
 
 ---
 
 ## Investigation Workflow
 
 ```text
-Suspicious Phishing Activity
-          │
-          ▼
-   Artifact Collection
-          │
-          ▼
-   IOC Identification
-          │
-          ├── Domain
-          ├── Destination IP
-          ├── URL
-          └── SHA-256
-          │
-          ▼
-      MISP Event
-          │
-          ▼
-   IOC Classification
-          │
-          ▼
- Domain ↔ IP Relationship
-          │
-          ▼
- MITRE ATT&CK Mapping
-          │
-          ▼
- Correlation + IOC Search
-          │
-          ▼
- Investigation Completed
+Phishing Scenario
+       |
+       v
+IOC Identification
+       |
+       +--> Domain
+       +--> Destination IP
+       +--> URL
+       +--> SHA-256
+       |
+       v
+MISP Event Creation
+       |
+       v
+IOC Classification
+       |
+       v
+Correlation Enabled
+       |
+       v
+domain-ip Object Modeling
+       |
+       v
+MITRE ATT&CK Mapping
+       |
+       v
+IOC Search & Validation
+       |
+       v
+Analyst Assessment
 ```
 
 ---
 
-# 1. MISP Event Creation
+## MISP Threat Intelligence Model
 
-A dedicated MISP event was created to document the investigation.
+Rather than maintaining only a flat IOC list, the investigation preserved relationships between the observed artifacts.
 
-**Event Name**
+```text
+                 Phishing Activity
+                        |
+          +-------------+-------------+
+          |             |             |
+          v             v             v
+       Domain          URL         SHA-256
+          |
+          v
+   Destination IP
+```
 
-`SOC Investigation - Suspicious Phishing Infrastructure`
-
-The event provides a centralized intelligence record containing the indicators, relationships, ATT&CK mapping, and analyst context associated with the investigation.
-
-![MISP Event](evidence/screenshots/01-event-creation.png)
+The domain and destination IP were additionally modeled using a structured MISP `domain-ip` object.
 
 ---
 
-# 2. IOC Collection and Classification
+## MITRE ATT&CK Mapping
 
-Four primary indicators were identified and entered into MISP.
+The phishing behavior was associated with the MISP Enterprise ATT&CK Galaxy entry:
 
-### Domain
+**Spearphishing Link — T1192**
 
-```text
-secure-login-support.com
-```
+The MISP environment used for this lab displayed the legacy `T1192` identifier. The project preserves the identifier shown by the lab environment rather than modifying historical evidence.
 
-MISP classification:
+### ATT&CK Correlation Evidence
 
-```text
-Category: Network activity
-Type: domain
-```
+![MISP ATT&CK correlation graph](evidence/screenshots/misp-correlation-graph-spearphishing-link.png)
 
-The domain represents the simulated phishing infrastructure.
-
-![Domain IOC](evidence/screenshots/02-domain-ioc.png)
-
-### Destination IP
-
-```text
-198.51.100.23
-```
-
-MISP classification:
-
-```text
-Category: Network activity
-Type: ip-dst
-```
-
-The address is part of a documentation range and represents the simulated destination infrastructure.
-
-![IP IOC](evidence/screenshots/03-ip-ioc.png)
-
-### Credential-Harvesting URL
-
-```text
-http://secure-login-support.com/account/verify
-```
-
-MISP classification:
-
-```text
-Category: Network activity
-Type: url
-```
-
-The URL represents the simulated phishing landing page associated with the investigation.
-
-![URL IOC](evidence/screenshots/04-url-ioc.png)
-
-### Attachment Hash
-
-```text
-275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f
-```
-
-MISP classification:
-
-```text
-Category: Payload delivery
-Type: sha256
-```
-
-The hash represents a simulated malicious attachment associated with the phishing scenario.
-
-![SHA-256 IOC](evidence/screenshots/05-sha256-ioc.png)
+The graph demonstrates the relationship between the MISP investigation event and the selected Spearphishing Link ATT&CK Galaxy cluster.
 
 ---
 
-# 3. IOC Correlation
+## IOC Validation
 
-Correlation was enabled for the investigation indicators.
+Each primary indicator was searched independently after being entered into MISP.
 
-Correlation allows MISP to identify instances where the same indicator appears across other events or intelligence records.
+| Indicator Type | Search Result | Status |
+|---|---:|---|
+| Domain | 2 records | ✅ Validated |
+| Destination IP | 2 records | ✅ Validated |
+| SHA-256 | 1 record | ✅ Validated |
+| URL | 1 record | ✅ Validated |
 
-From a SOC perspective, this capability can help analysts identify:
-
-- Reused infrastructure
-- Recurring phishing campaigns
-- Shared malicious indicators
-- Connections between investigations
-- Potential campaign relationships
-
----
-
-# 4. Infrastructure Relationship Modeling
-
-Instead of treating the domain and destination IP as completely independent indicators, a MISP `domain-ip` object was created.
-
-Relationship:
-
-```text
-secure-login-support.com
-        │
-        ▼
-198.51.100.23
-```
-
-This models the relationship between the suspicious domain and its associated simulated destination infrastructure.
-
-![Domain-IP Object](evidence/screenshots/07-domain-ip-object.png)
-
-Using structured MISP objects improves the intelligence model because related artifacts can be represented together rather than only as isolated attributes.
-
----
-
-# 5. MITRE ATT&CK Mapping
-
-The phishing activity was mapped to the ATT&CK entry available in the lab's MISP galaxy:
-
-```text
-Spearphishing Link - T1192
-```
-
-![MITRE ATT&CK Mapping](evidence/screenshots/06-attack-mapping.png)
-
-This associates the threat intelligence with the adversary behavior represented by the phishing link.
-
-> **Version note:** The MISP galaxy used in this lab displays the legacy ATT&CK identifier `T1192`. Current ATT&CK versions represent spearphishing links under the Phishing technique as `T1566.002`.
-
-This distinction is documented to preserve the evidence exactly as displayed by the lab environment while recognizing the current ATT&CK taxonomy.
-
----
-
-# 6. IOC Validation
-
-After documenting the indicators, MISP search functionality was used to verify that each IOC was successfully indexed and retrievable.
+The domain and destination IP return two records because each exists both as a standalone attribute and as a component of the structured `domain-ip` object.
 
 ### Domain Validation
 
-The suspicious domain was searched within MISP and returned the corresponding investigation records.
+![Domain IOC validation](evidence/screenshots/misp-ioc-domain-search-results.png)
 
-![Domain Search](evidence/screenshots/09-domain-search-validation.png)
+### Destination IP Validation
 
-### IP Validation
-
-The destination IP was successfully retrieved through MISP IOC search.
-
-![IP Search](evidence/screenshots/10-ip-search-validation.png)
+![IP IOC validation](evidence/screenshots/misp-ioc-ip-search-results.png)
 
 ### SHA-256 Validation
 
-The simulated attachment hash returned the expected investigation record.
-
-![SHA256 Search](evidence/screenshots/11-sha256-search-validation.png)
+![SHA-256 IOC validation](evidence/screenshots/misp-ioc-sha256-search-results.png)
 
 ### URL Validation
 
-The credential-harvesting URL returned the associated network activity attribute.
-
-![URL Search](evidence/screenshots/12-url-search-validation.png)
-
-This confirmed that the indicators were available for future intelligence searches and correlation.
+![URL IOC validation](evidence/screenshots/misp-ioc-url-search-results.png)
 
 ---
 
-# 7. Investigation Completion
+## Investigation Documentation
 
-After IOC documentation, object creation, ATT&CK mapping, correlation, and validation were completed, the MISP event analysis state was changed to:
+Detailed analyst documentation is available in the `docs/` directory:
+
+| Document | Description |
+|---|---|
+| [01 — Investigation Overview](docs/01-investigation-overview.md) | Scenario, scope, objectives, methodology, and intelligence model |
+| [02 — IOC Analysis](docs/02-ioc-analysis.md) | Domain, destination IP, URL, and SHA-256 analysis |
+| [03 — MISP Object Modeling](docs/03-misp-object-modeling.md) | Structured domain-to-IP relationship modeling |
+| [04 — MITRE ATT&CK Mapping](docs/04-mitre-attack-mapping.md) | ATT&CK Galaxy association and behavioral context |
+| [05 — IOC Validation](docs/05-ioc-validation.md) | IOC search, validation, and analyst pivot workflow |
+| [06 — Analyst Conclusion](docs/06-analyst-conclusion.md) | Findings, limitations, defensive recommendations, and final assessment |
+
+---
+
+## Repository Structure
 
 ```text
-Completed
+misp-phishing-threat-intelligence-lab/
+|
+├── README.md
+├── LICENSE
+|
+├── docs/
+│   ├── 01-investigation-overview.md
+│   ├── 02-ioc-analysis.md
+│   ├── 03-misp-object-modeling.md
+│   ├── 04-mitre-attack-mapping.md
+│   ├── 05-ioc-validation.md
+│   └── 06-analyst-conclusion.md
+|
+└── evidence/
+    └── screenshots/
+        ├── misp-correlation-graph-spearphishing-link.png
+        ├── misp-ioc-domain-search-results.png
+        ├── misp-ioc-ip-search-results.png
+        ├── misp-ioc-sha256-search-results.png
+        └── misp-ioc-url-search-results.png
 ```
-
-![Completed Investigation](evidence/screenshots/08-completed-investigation.png)
-
-This represents the closure of the intelligence documentation phase of the investigation.
 
 ---
 
-# Analyst Assessment
+## Skills Demonstrated
 
-The collected indicators support a simulated phishing scenario involving a credential-harvesting URL and associated network infrastructure.
+This project demonstrates practical experience with:
 
-The investigation established relationships between:
-
-```text
-Phishing Technique
-        │
-        ▼
-Credential-Harvesting URL
-        │
-        ▼
-Suspicious Domain
-        │
-        ▼
-Destination IP
-```
-
-A simulated malicious attachment hash was also documented as a payload-delivery indicator associated with the investigation.
-
-Structuring these artifacts in MISP makes them available for correlation, intelligence searches, detection engineering, threat hunting, and future incident investigations.
-
----
-
-# SOC Relevance
-
-This lab demonstrates practical skills relevant to SOC and threat intelligence operations, including:
-
-- Indicator of Compromise management
-- Threat intelligence documentation
-- MISP event management
-- Indicator classification
-- Infrastructure analysis
+- MISP threat-intelligence operations
+- SOC investigation workflows
+- Cyber Threat Intelligence fundamentals
+- IOC creation and management
+- Domain and IP analysis
+- URL analysis
+- SHA-256 file indicators
+- MISP attribute classification
 - IOC correlation
 - MISP object modeling
+- Domain-to-IP relationship analysis
+- MISP Galaxies
 - MITRE ATT&CK mapping
-- Threat intelligence validation
-- Phishing investigation
-- Analyst documentation
+- IOC search and validation
+- Threat-intelligence pivoting
+- Phishing infrastructure analysis
+- Analyst reporting and documentation
 
 ---
 
-# Key Takeaways
+## SOC Analyst Application
 
-This investigation demonstrated that effective threat intelligence involves more than collecting indicators.
+A similar workflow can support operational SOC investigations:
 
-Raw artifacts become more useful when they are:
+```text
+SIEM / EDR / Email Alert
+          |
+          v
+      Extract IOC
+          |
+          v
+       Search MISP
+          |
+     +----+----+
+     |         |
+ No Match     Match
+     |         |
+     v         v
+ Enrich     Review Event
+               |
+               v
+         Related Indicators
+               |
+               v
+         Hunt Telemetry
+               |
+               v
+        Scope Incident
+               |
+               v
+       Defensive Action
+```
+
+Threat intelligence therefore becomes more than an IOC repository—it provides context analysts can use to pivot between alerts, infrastructure, related indicators, and defensive telemetry.
+
+---
+
+## Key Takeaways
+
+This investigation demonstrated that useful threat intelligence requires more than collecting technical indicators.
+
+Indicators become more operationally valuable when they are:
 
 1. Correctly classified
 2. Given investigative context
-3. Correlated with related indicators
-4. Structured into meaningful relationships
+3. Structured into meaningful relationships
+4. Available for correlation
 5. Mapped to adversary behavior
-6. Made searchable for future investigations
+6. Searchable for future investigations
+7. Documented with analyst findings
 
-MISP provides a structured mechanism for transforming investigation artifacts into reusable threat intelligence.
+MISP provides a platform for transforming individual artifacts into reusable threat intelligence that can support SOC investigations, threat hunting, detection engineering, and incident response.
 
 ---
 
-# Disclaimer
+## Project Status
 
-This project was created exclusively for cybersecurity education and defensive security portfolio development.
+**Investigation Complete ✅**
 
-The infrastructure, indicators, and investigation scenario are simulated. Documentation-range addressing and controlled lab artifacts were intentionally used to avoid interaction with real malicious infrastructure.
+```text
+IOC Collection       Complete
+MISP Classification  Complete
+Object Modeling      Complete
+IOC Correlation      Complete
+ATT&CK Mapping       Complete
+IOC Validation       Complete
+Analyst Assessment   Complete
+Documentation        Complete
+```
 
-No real organization, user, or production system was targeted.
+---
+
+## Disclaimer
+
+This repository was created exclusively for cybersecurity education, defensive-security training, and portfolio development.
+
+All indicators and infrastructure represented in this project are simulated or documentation-range artifacts. No real organization, production environment, user, or malicious infrastructure was targeted.
 
 ---
 
