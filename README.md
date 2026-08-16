@@ -264,33 +264,9 @@ misp-phishing-threat-intelligence-lab/
 
 ---
 
-## Skills Demonstrated
-
-This project demonstrates practical experience with:
-
-- MISP threat-intelligence operations
-- SOC investigation workflows
-- Cyber Threat Intelligence fundamentals
-- IOC creation and management
-- Domain and IP analysis
-- URL analysis
-- SHA-256 file indicators
-- MISP attribute classification
-- IOC correlation
-- MISP object modeling
-- Domain-to-IP relationship analysis
-- MISP Galaxies
-- MITRE ATT&CK mapping
-- IOC search and validation
-- Threat-intelligence pivoting
-- Phishing infrastructure analysis
-- Analyst reporting and documentation
-
----
-
 ## SOC Analyst Application
 
-A similar workflow can support operational SOC investigations:
+The threat-intelligence workflow demonstrated in this lab can be integrated into operational SOC investigations. Analysts can extract indicators from SIEM, EDR, or email-security alerts and pivot into MISP to identify known infrastructure, related indicators, and additional investigative context.
 
 ```text
 SIEM / EDR / Email Alert
@@ -321,25 +297,25 @@ SIEM / EDR / Email Alert
        Defensive Action
 ```
 
-Threat intelligence therefore becomes more than an IOC repository—it provides context analysts can use to pivot between alerts, infrastructure, related indicators, and defensive telemetry.
+This workflow demonstrates how threat intelligence can support alert enrichment and incident scoping rather than functioning solely as an IOC repository. By correlating observed indicators with existing intelligence, analysts can pivot across related infrastructure, identify additional artifacts, hunt for associated activity in security telemetry, and make more informed defensive decisions.
 
 ---
 
 ## Key Takeaways
 
-This investigation demonstrated that useful threat intelligence requires more than collecting technical indicators.
+This investigation demonstrated that effective threat intelligence requires more than collecting technical indicators. Individual IOCs become significantly more valuable when they are enriched with context, structured into relationships, correlated with other intelligence, and mapped to adversary behavior.
 
-Indicators become more operationally valuable when they are:
+Key analytical lessons from the investigation include:
 
-1. Correctly classified
-2. Given investigative context
-3. Structured into meaningful relationships
-4. Available for correlation
-5. Mapped to adversary behavior
-6. Searchable for future investigations
-7. Documented with analyst findings
+1. **Classification provides structure** — correctly typed domain, IP, URL, and file-hash attributes improve searching, correlation, and downstream analysis.
+2. **Context increases intelligence value** — analyst comments and event metadata explain why an indicator matters to the investigation.
+3. **Relationships reveal infrastructure** — MISP objects preserve connections between related artifacts, such as the relationship between a domain and its destination IP.
+4. **Correlation supports investigative pivoting** — searchable indicators allow analysts to identify related intelligence and pivot across potentially connected activity.
+5. **MITRE ATT&CK adds behavioral context** — mapping the phishing activity to Spearphishing Link (T1192, as represented in the lab environment) connects technical indicators with adversary behavior.
+6. **Validation improves investigative confidence** — independently searching recorded indicators verifies that the intelligence was successfully stored and remains available for future analysis.
+7. **Documentation makes intelligence reusable** — structured analyst findings allow investigation results to support future SOC investigations, threat hunting, detection engineering, and incident response.
 
-MISP provides a platform for transforming individual artifacts into reusable threat intelligence that can support SOC investigations, threat hunting, detection engineering, and incident response.
+Together, these practices transform isolated technical artifacts into structured and reusable cyber threat intelligence.
 
 ---
 
@@ -347,16 +323,16 @@ MISP provides a platform for transforming individual artifacts into reusable thr
 
 **Investigation Complete ✅**
 
-```text
-IOC Collection       Complete
-MISP Classification  Complete
-Object Modeling      Complete
-IOC Correlation      Complete
-ATT&CK Mapping       Complete
-IOC Validation       Complete
-Analyst Assessment   Complete
-Documentation        Complete
-```
+| Investigation Phase | Status |
+|---|---|
+| IOC Collection | ✅ Complete |
+| MISP Classification | ✅ Complete |
+| Object Modeling | ✅ Complete |
+| IOC Correlation | ✅ Complete |
+| MITRE ATT&CK Mapping | ✅ Complete |
+| IOC Validation | ✅ Complete |
+| Analyst Assessment | ✅ Complete |
+| Documentation | ✅ Complete |
 
 ---
 
