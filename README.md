@@ -47,6 +47,30 @@ Detailed analysis and supporting documentation are organized into the following 
 
 ---
 
+## Skills Demonstrated
+
+This project demonstrates practical skills applicable to SOC, Cyber Threat Intelligence (CTI), and Blue Team operations:
+
+| Competency | Practical Application |
+|---|---|
+| Threat Intelligence Analysis | Analyzed and documented phishing-related indicators within a structured intelligence workflow |
+| Indicator of Compromise (IOC) Analysis | Investigated domain, destination IP, URL, and SHA-256 indicators |
+| MISP Event Management | Created and maintained a structured MISP investigation event |
+| MISP Object Modeling | Modeled the relationship between phishing infrastructure using a domain-to-IP object |
+| IOC Correlation | Enabled correlation to identify relationships and potential indicator reuse |
+| MITRE ATT&CK Mapping | Mapped the simulated phishing activity to Spearphishing Link (T1192) |
+| Threat Infrastructure Analysis | Connected domain, IP, URL, and file-hash artifacts within a unified investigation |
+| IOC Validation | Queried recorded indicators to verify their presence and investigative context |
+| Analyst Documentation | Produced structured investigation notes, evidence, findings, and defensive recommendations |
+
+### Tools & Frameworks
+
+- **MISP** — Threat intelligence management, IOC storage, object modeling, and correlation
+- **MITRE ATT&CK** — Adversary technique classification and investigation context
+- **GitHub** — Technical documentation, evidence management, and portfolio presentation
+
+---
+
 
 ## Investigation Scenario
 
