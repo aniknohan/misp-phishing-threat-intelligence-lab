@@ -204,3 +204,21 @@ The result is a more contextualized threat-intelligence record than a standalone
 Continue to:
 
 [05 — IOC Validation](05-ioc-validation.md)
+
+
+## ATT&CK Version Note
+
+The MISP Galaxy available in the lab environment displayed the legacy
+Spearphishing Link identifier `T1192`.
+
+In the current MITRE ATT&CK framework, the simulated credential-harvesting
+scenario documented in this investigation aligns more precisely with:
+
+**T1598.003 — Phishing for Information: Spearphishing Link**
+
+This technique describes spearphishing links designed to elicit sensitive
+information, including credentials, from a target.
+
+The legacy identifier shown in the MISP screenshot has been retained as
+original lab evidence, while the current ATT&CK mapping is documented here
+for technical accuracy.
