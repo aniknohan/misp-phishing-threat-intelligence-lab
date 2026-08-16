@@ -191,3 +191,17 @@ The resulting object provides a structured representation of the simulated phish
 Continue to:
 
 [04 — MITRE ATT&CK Mapping](04-mitre-attack-mapping.md)
+
+
+## Attribute Representation Note
+
+The domain and destination IP appear both as standalone MISP attributes and
+as components of the `domain-ip` object.
+
+The standalone attributes support direct IOC searching and correlation,
+while the object representation preserves the analytical relationship
+between the domain and its associated IP address.
+
+As a result, IOC searches may display more than one record for these values.
+This is expected in this lab and reflects the two different representations
+used during the investigation.
