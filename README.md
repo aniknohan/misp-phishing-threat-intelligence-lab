@@ -159,13 +159,6 @@ The phishing behavior was associated with the MISP Enterprise ATT&CK Galaxy entr
 **Spearphishing Link — T1192**
 
 The MISP environment used for this lab displayed the legacy `T1192` identifier. The project preserves the identifier shown by the lab environment rather than modifying historical evidence.
-
-### ATT&CK Correlation Evidence
-
-![MISP ATT&CK correlation graph](evidence/screenshots/misp-correlation-graph-spearphishing-link.png)
-
-The graph demonstrates the relationship between the MISP investigation event and the selected Spearphishing Link ATT&CK Galaxy cluster.
-
 ---
 
 ## IOC Validation
