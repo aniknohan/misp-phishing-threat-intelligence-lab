@@ -181,23 +181,46 @@ Each primary indicator was searched independently after being entered into MISP.
 
 The domain and destination IP return two records because each exists both as a standalone attribute and as a component of the structured `domain-ip` object.
 
-### Domain Validation
+## Investigation Evidence
 
-![Domain IOC validation](evidence/screenshots/misp-ioc-domain-search-results.png)
+The following evidence captures key stages of the MISP investigation, including ATT&CK mapping and IOC validation.
 
-### Destination IP Validation
+### MITRE ATT&CK Correlation
 
-![IP IOC validation](evidence/screenshots/misp-ioc-ip-search-results.png)
+![MISP correlation graph showing Spearphishing Link T1192](evidence/screenshots/misp-correlation-graph-spearphishing-link.png)
 
-### SHA-256 Validation
+*MISP correlation graph associating the investigation with the MITRE ATT&CK Spearphishing Link technique (T1192).*
 
-![SHA-256 IOC validation](evidence/screenshots/misp-ioc-sha256-search-results.png)
+### IOC Validation Evidence
 
-### URL Validation
+#### Domain
 
-![URL IOC validation](evidence/screenshots/misp-ioc-url-search-results.png)
+![MISP domain IOC validation](evidence/screenshots/misp-ioc-domain-search-results.png)
+
+*Validation of the simulated phishing domain within the MISP attribute dataset.*
+
+#### Destination IP
+
+![MISP destination IP IOC validation](evidence/screenshots/misp-ioc-ip-search-results.png)
+
+*Validation of the documentation-range destination IP associated with the simulated phishing infrastructure.*
+
+#### SHA-256
+
+![MISP SHA-256 IOC validation](evidence/screenshots/misp-ioc-sha256-search-results.png)
+
+*Validation of the SHA-256 indicator representing the simulated malicious attachment.*
+
+#### URL
+
+![MISP URL IOC validation](evidence/screenshots/misp-ioc-url-search-results.png)
+
+*Validation of the simulated credential-harvesting URL recorded during the investigation.*
+
+> **Evidence Note:** Indicators shown in these screenshots are simulated or documentation-range artifacts used exclusively for defensive cybersecurity training.
 
 ---
+
 
 ## Investigation Documentation
 
