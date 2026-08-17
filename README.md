@@ -265,19 +265,14 @@ misp-phishing-threat-intelligence-lab/
         ├── 13-ransomware-domain-ioc-search.png
         ├── 14-ransomware-ip-ioc-search.png
         ├── 15-ransomware-sha256-ioc-search.png
-        ├── 16-misp-ransomware-event-correlation.png
+        ├── 16-ransomware-event-correlation.png
         ├── 17-misp-correlated-event-pivot.png
         ├── 18-misp-locky-correlation-graph.png
         ├── 19-misp-ransomware-ioc-export-options.png
         ├── 20-misp-suricata-detection-rule-export.png
         ├── 21-misp-json-threat-intelligence-export.png
         ├── 22-misp-rest-api-automation-interface.png
-        ├── 23-misp-threat-intelligence-dashboard.png
-        ├── misp-correlation-graph-spearphishing-link.png
-        ├── misp-ioc-domain-search-results.png
-        ├── misp-ioc-ip-search-results.png
-        ├── misp-ioc-sha256-search-results.png
-        └── misp-ioc-url-search-results.png
+        └── 23-misp-threat-intelligence-dashboard.png
 ```
 
 ---
