@@ -510,7 +510,13 @@ Together, these practices transform isolated technical artifacts into structured
 | Documentation | ✅ Complete |
 
 ---
+## Disclaimer
 
+This repository was created exclusively for cybersecurity education, defensive-security training, and portfolio development.
+
+All indicators and infrastructure represented in this project are simulated or documentation-range artifacts. No real organization, production environment, user, or malicious infrastructure was targeted.
+
+---
 
 ## Author
 
@@ -537,13 +543,5 @@ This hands-on MISP Phishing Threat Intelligence Investigation was completed to d
 ### Tools & Frameworks
 
 `MISP` • `MITRE ATT&CK` • `Suricata` • `OSINT Threat Feeds` • `MISP REST API` • `GitHub`
-
----
-
-## Disclaimer
-
-This repository was created exclusively for cybersecurity education, defensive-security training, and portfolio development.
-
-All indicators and infrastructure represented in this project are simulated or documentation-range artifacts. No real organization, production environment, user, or malicious infrastructure was targeted.
 
 ---
