@@ -511,6 +511,35 @@ Together, these practices transform isolated technical artifacts into structured
 
 ---
 
+
+## Author
+
+**Anik Nohan**
+
+This hands-on MISP Phishing Threat Intelligence Investigation was completed to demonstrate practical skills in:
+
+- Cyber Threat Intelligence (CTI) analysis
+- Phishing IOC investigation
+- MISP event and attribute management
+- IOC classification and validation
+- MISP object modeling
+- Threat infrastructure analysis
+- IOC correlation and investigative pivoting
+- OSINT threat intelligence ingestion
+- Ransomware threat hunting
+- MITRE ATT&CK mapping
+- Threat relationship visualization
+- Suricata detection-rule generation
+- MISP JSON intelligence export
+- REST API and security automation concepts
+- SOC and CTI investigation documentation
+
+### Tools & Frameworks
+
+`MISP` • `MITRE ATT&CK` • `Suricata` • `OSINT Threat Feeds` • `MISP REST API` • `GitHub`
+
+---
+
 ## Disclaimer
 
 This repository was created exclusively for cybersecurity education, defensive-security training, and portfolio development.
@@ -518,9 +547,3 @@ This repository was created exclusively for cybersecurity education, defensive-s
 All indicators and infrastructure represented in this project are simulated or documentation-range artifacts. No real organization, production environment, user, or malicious infrastructure was targeted.
 
 ---
-
-## Author
-
-**Anik Nohan**
-
-Cybersecurity | SOC Analysis | Blue Team | Threat Intelligence
