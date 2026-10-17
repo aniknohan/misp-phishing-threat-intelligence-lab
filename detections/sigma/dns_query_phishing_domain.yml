@@ -1,0 +1,26 @@
+title: DNS Query for Lab Phishing Domain (MISP Event 1)
+id: d8b07130-de6d-4650-8be9-210df213ad06
+status: experimental
+description: >
+  Detects DNS resolution of the phishing domain recorded in MISP event 1
+  "SOC Investigation - Suspicious Phishing Infrastructure". A hit means a host
+  tried to reach the credential-harvesting site. The domain is fictional and
+  used for training.
+references:
+  - https://github.com/aniknohan/misp-phishing-threat-intelligence-lab
+author: Anik Nohan
+date: 2026-10-17
+tags:
+  - attack.initial_access
+  - attack.t1566.002
+  - attack.reconnaissance
+  - attack.t1598.003
+logsource:
+  category: dns_query
+detection:
+  selection:
+    QueryName|endswith: 'secure-login-support.com'
+  condition: selection
+falsepositives:
+  - Analysts or sandboxes deliberately resolving the indicator during investigation
+level: high

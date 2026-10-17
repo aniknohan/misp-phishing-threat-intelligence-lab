@@ -1,0 +1,36 @@
+``` MISP event 1 IOC hunts for Splunk.
+    Indicators are simulated: fictional domain, RFC 5737 documentation IP, EICAR test-file hash.
+    Run each search separately. Adjust index and sourcetype names to your environment.
+    Searches 1 and 2 use the CIM Network_Resolution and Web data models. ```
+
+
+``` ---- 1) DNS: hosts that resolved the phishing domain ---- ```
+| tstats summariesonly=false count min(_time) as first_seen max(_time) as last_seen
+    from datamodel=Network_Resolution.DNS
+    where DNS.query="*secure-login-support.com"
+    by DNS.src DNS.query
+| convert ctime(first_seen) ctime(last_seen)
+
+
+``` ---- 2) Web / proxy: requests to the phishing domain or destination IP ---- ```
+| tstats summariesonly=false count min(_time) as first_seen max(_time) as last_seen values(Web.url) as urls
+    from datamodel=Web.Web
+    where (Web.dest="*secure-login-support.com" OR Web.dest="198.51.100.23")
+    by Web.src Web.user Web.dest
+| eval reached_harvest_page=if(match(mvjoin(urls, " "), "/account/verify"), "yes", "no")
+| convert ctime(first_seen) ctime(last_seen)
+
+
+``` ---- 3) Endpoint: attachment hash (EICAR) in Sysmon process creation ---- ```
+index=* sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=1
+    Hashes="*275A021BBFB6489E54D471899F7DB9D1663FC695EC2FE2A2C4538AABF651FD0F*"
+| table _time host User Image Hashes ParentImage
+
+
+``` ---- 4) All IOCs at once from a lookup ----
+    Upload data/iocs.csv as lookup "misp_iocs.csv" after re-fanging it
+    (replace [.] with . and hxxp with http), or export the event from MISP as CSV. ```
+index=* (sourcetype=*dns* OR sourcetype=*proxy* OR sourcetype=*firewall*)
+    [| inputlookup misp_iocs.csv | eval search="\"" . value . "\"" | fields search | format]
+| stats count min(_time) as first_seen max(_time) as last_seen by host sourcetype
+| convert ctime(first_seen) ctime(last_seen)

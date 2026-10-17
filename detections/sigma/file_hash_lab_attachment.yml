@@ -1,0 +1,25 @@
+title: Lab Phishing Attachment Hash Observed (EICAR Test File)
+id: de07a250-4aef-49b3-81b0-4386a3d7d03a
+status: experimental
+description: >
+  Detects process creation from a file whose SHA-256 matches the attachment
+  indicator in MISP event 1. The hash is the harmless EICAR antivirus test file,
+  so this rule is safe to use for testing that hash-based detections work end to end.
+references:
+  - https://github.com/aniknohan/misp-phishing-threat-intelligence-lab
+  - https://www.eicar.org/download-anti-malware-testfile/
+author: Anik Nohan
+date: 2026-10-17
+tags:
+  - attack.initial_access
+  - attack.t1566.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Hashes|contains: 'SHA256=275A021BBFB6489E54D471899F7DB9D1663FC695EC2FE2A2C4538AABF651FD0F'
+  condition: selection
+falsepositives:
+  - Antivirus and detection testing that intentionally uses the EICAR file
+level: medium

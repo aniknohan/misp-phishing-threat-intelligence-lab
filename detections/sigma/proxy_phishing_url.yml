@@ -1,0 +1,27 @@
+title: Web Request to Lab Credential-Harvesting URL (MISP Event 1)
+id: 54557b46-e307-48a1-8ae4-de8cd8712987
+status: experimental
+description: >
+  Detects HTTP requests to the phishing infrastructure recorded in MISP event 1,
+  either the fictional domain or the documentation-range destination IP. During triage,
+  a request to the /account/verify path means the user reached the credential-harvesting page.
+references:
+  - https://github.com/aniknohan/misp-phishing-threat-intelligence-lab
+author: Anik Nohan
+date: 2026-10-17
+tags:
+  - attack.initial_access
+  - attack.t1566.002
+  - attack.reconnaissance
+  - attack.t1598.003
+logsource:
+  category: proxy
+detection:
+  selection_host:
+    cs-host|endswith: 'secure-login-support.com'
+  selection_ip:
+    dst_ip: '198.51.100.23'
+  condition: selection_host or selection_ip
+falsepositives:
+  - Analysts or sandboxes deliberately visiting the indicator during investigation
+level: high

@@ -1,0 +1,5 @@
+type,value,category,to_ids,comment
+domain,secure-login-support[.]com,Network activity,true,Simulated phishing domain (fictional; defanged)
+ip-dst,198.51.100.23,Network activity,true,Simulated destination IP (RFC 5737 documentation range)
+url,hxxp://secure-login-support[.]com/account/verify,Network activity,true,Simulated credential-harvesting URL (defanged)
+sha256,275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f,Payload delivery,true,EICAR antivirus test file (harmless)
