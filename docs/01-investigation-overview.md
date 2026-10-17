@@ -8,7 +8,7 @@ The investigation models a credential-harvesting phishing scenario in which mult
 
 The primary objective was to demonstrate how a SOC or Cyber Threat Intelligence (CTI) analyst can transform isolated technical indicators into structured and actionable threat intelligence.
 
-> **Lab Safety Notice:** All indicators used in this project are simulated or documentation-range artifacts created exclusively for defensive cybersecurity training. No live malicious infrastructure was used.
+> **Lab Safety Notice:** All indicators used in this project are simulated. The IP is from the RFC 5737 documentation range, the domain and URL are fictional and defanged, and the SHA-256 is the harmless EICAR test file. They are artifacts created exclusively for defensive cybersecurity training. No live malicious infrastructure was used.
 
 ---
 
@@ -20,9 +20,9 @@ The investigation focused on four primary indicators:
 
 | Indicator Type | Value | Analytical Purpose |
 |---|---|---|
-| Domain | `secure-login-support.com` | Simulated phishing infrastructure |
+| Domain | `secure-login-support[.]com` | Simulated phishing infrastructure |
 | Destination IP | `198.51.100.23` | Documentation-range infrastructure address |
-| URL | `http://secure-login-support.com/account/verify` | Simulated credential-harvesting endpoint |
+| URL | `hxxp://secure-login-support[.]com/account/verify` | Simulated credential-harvesting endpoint |
 | SHA-256 | `275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f` | Simulated malicious attachment indicator |
 
 These indicators were entered into MISP and analyzed as components of the same phishing investigation.
@@ -68,13 +68,13 @@ The investigation models the following relationship:
 Simulated Phishing Campaign
         |
         +-- Domain
-        |     secure-login-support.com
+        |     secure-login-support[.]com
         |
         +-- Destination IP
         |     198.51.100.23
         |
         +-- Credential-Harvesting URL
-        |     http://secure-login-support.com/account/verify
+        |     hxxp://secure-login-support[.]com/account/verify
         |
         +-- File Indicator
         |     SHA-256

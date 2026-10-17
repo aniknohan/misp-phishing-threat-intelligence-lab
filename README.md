@@ -1,244 +1,150 @@
-# MISP Phishing Threat Intelligence Investigation
+# MISP Phishing Threat Intelligence Lab
 
-![MISP](https://img.shields.io/badge/Platform-MISP-blue)
-![MITRE ATT&CK](https://img.shields.io/badge/Framework-MITRE%20ATT%26CK-red)
-![Threat Intelligence](https://img.shields.io/badge/Focus-Threat%20Intelligence-orange)
-![SOC](https://img.shields.io/badge/Role-SOC%20%2F%20CTI%20Analyst-green)
-![Lab](https://img.shields.io/badge/Environment-Simulated-lightgrey)
+![Platform](https://img.shields.io/badge/platform-MISP%202.4-0b5cff)
+![Focus](https://img.shields.io/badge/focus-cyber%20threat%20intelligence-c0392b)
+![ATT&CK](https://img.shields.io/badge/MITRE%20ATT%26CK-Spearphishing%20Link-6f42c1)
+![Feeds](https://img.shields.io/badge/OSINT%20feeds-5-0aa)
+![Exports](https://img.shields.io/badge/exports-Suricata%20%C2%B7%20JSON%20%C2%B7%20API-2ea44f)
+![Screenshots](https://img.shields.io/badge/screenshots-28-orange)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
-> A hands-on cyber threat intelligence investigation demonstrating phishing IOC analysis, MISP object modeling, indicator correlation, IOC validation, and MITRE ATT&CK mapping.
+A hands-on **cyber threat intelligence (CTI) lab** in **MISP**, the open-source Malware Information Sharing Platform. In the first phase I modeled a phishing investigation: four classified IOCs, a `domain-ip` object, correlation and a MITRE ATT&CK galaxy link, each validated by search. In the second phase I connected MISP to five OSINT feeds, investigated real **Locky ransomware** intelligence, followed shared indicators into a related malspam campaign, and turned the result into **Suricata IDS rules**, MISP JSON and REST API queries.
 
----
+> **What it shows:** how a SOC or CTI analyst turns isolated indicators into structured, correlated intelligence that detection tools can use. One shared IOC took the investigation from a 6-attribute Locky report (event 73) to a 151-attribute malspam campaign (event 150) linked to more than a dozen other Locky events.
 
-## Project Overview
+![From IOCs to operational intelligence in MISP](assets/diagrams/misp-intelligence-workflow.svg)
 
-This project documents a simulated phishing threat intelligence investigation conducted using MISP (Malware Information Sharing Platform).
+## Why I Did This
 
-The investigation demonstrates how a SOC or Cyber Threat Intelligence (CTI) analyst can transform isolated technical indicators into structured, correlated, and actionable threat intelligence.
+An IOC list on its own goes stale fast and answers very little. The value of threat intelligence is in the structure around each indicator: what kind of thing it is, what it relates to, what behaviour it represents and which other activity it connects to. I wanted to build that structure myself in MISP, then work with real community intelligence to see how correlation exposes a campaign, and finish by pushing the intelligence into a format a network sensor can act on.
 
-The workflow includes:
+## Highlights
 
-- Identification and documentation of phishing-related indicators of compromise (IOCs)
-- Structured IOC management within MISP
-- Domain-to-IP relationship modeling using MISP objects
-- IOC correlation and validation
-- MITRE ATT&CK mapping
-- Analyst assessment and investigation documentation
+- **MISP platform setup:** base URL, `SOC-Lab` host organisation, a second organisation and user, five OSINT feeds and background workers configured on MISP 2.4.102.
+- **Structured phishing event:** event `1` with domain, `ip-dst`, URL and `sha256` attributes, each with category, comment and correlation enabled.
+- **Object modeling:** a `domain-ip` object linking the phishing domain to its destination IP.
+- **ATT&CK mapping with version awareness:** galaxy link to Spearphishing Link, shown in the lab as legacy `T1192`, documented with its successor `T1566.002` and the better-fitting `T1598.003`.
+- **Search-based validation:** every IOC searched independently; record counts explained (standalone attribute plus object attribute).
+- **Safe, verifiable indicators:** IP from the RFC 5737 documentation range, defanged fictional domain, and the SHA-256 of the harmless EICAR test file.
+- **OSINT ingestion:** CIRCL OSINT, Botvrij.eu, inThreat and two ZeuS blocklist feeds populated MISP with real historical intelligence.
+- **Ransomware threat hunting:** attribute searches across all events for Locky and for ransomware-tagged domains, IPs and SHA-256 hashes.
+- **Correlation and pivoting:** shared indicators linked event 157 to event 150, *Malspam 2016-06-23 (Locky)*, and the correlation graph exposed the wider campaign.
+- **Operationalization:** Suricata rules and MISP JSON exported from the correlated event; REST API `restSearch` reviewed for automation.
 
-> **Lab Safety Notice:** All indicators used in this project are simulated or documentation-range artifacts created exclusively for defensive cybersecurity training. No live malicious infrastructure was used.
+## Screenshots
 
----
-## Investigation Documentation
-
-Detailed analysis and supporting documentation are organized into the following investigation phases:
-
-| Phase | Documentation | Focus |
-|---|---|---|
-| 01 | [Investigation Overview](docs/01-investigation-overview.md) | Scenario, objectives, scope, and investigation methodology |
-| 02 | [IOC Analysis](docs/02-ioc-analysis.md) | Analysis of domain, IP address, URL, and SHA-256 indicators |
-| 03 | [MISP Object Modeling](docs/03-misp-object-modeling.md) | Structured domain-to-IP relationship modeling in MISP |
-| 04 | [MITRE ATT&CK Mapping](docs/04-mitre-attack-mapping.md) | Mapping phishing activity to Spearphishing Link (T1192) |
-| 05 | [IOC Validation](docs/05-ioc-validation.md) | MISP searches used to validate and correlate recorded indicators |
-| 06 | [Analyst Conclusion](docs/06-analyst-conclusion.md) | Final assessment, findings, and defensive recommendations |
-| 07 | [MISP Threat Correlation](docs/07-misp-threat-correlation.md) | Locky ransomware analysis, IOC correlation, event pivoting, detection exports, and REST API automation |
-
-### Investigation Workflow
-
-`Phishing Scenario` → `IOC Identification` → `MISP Event Creation` → `Object Modeling` → `IOC Correlation` → `MITRE ATT&CK Mapping` → `IOC Validation` → `Analyst Assessment`
-
----
-
-## Skills Demonstrated
-
-This project demonstrates practical skills applicable to SOC, Cyber Threat Intelligence (CTI), and Blue Team operations:
-
-| Competency | Practical Application |
+| Locky campaign correlation graph | Suricata rules generated from MISP |
 |---|---|
-| Threat Intelligence Analysis | Analyzed and documented phishing-related indicators within a structured intelligence workflow |
-| Indicator of Compromise (IOC) Analysis | Investigated domain, destination IP, URL, and SHA-256 indicators |
-| MISP Event Management | Created and maintained a structured MISP investigation event |
-| MISP Object Modeling | Modeled the relationship between phishing infrastructure using a domain-to-IP object |
-| IOC Correlation | Enabled correlation to identify relationships and potential indicator reuse |
-| MITRE ATT&CK Mapping | Mapped the simulated phishing activity to Spearphishing Link (T1192) |
-| Threat Infrastructure Analysis | Connected domain, IP, URL, and file-hash artifacts within a unified investigation |
-| IOC Validation | Queried recorded indicators to verify their presence and investigative context |
-| Analyst Documentation | Produced structured investigation notes, evidence, findings, and defensive recommendations |
+| ![Locky campaign correlation graph](evidence/screenshots/18-misp-locky-correlation-graph.png) | ![Suricata detection rule export](evidence/screenshots/20-misp-suricata-detection-rule-export.png) |
 
-### Tools & Frameworks
+| Pivot into correlated Locky malspam event | Ransomware-tagged IP hunt across all events |
+|---|---|
+| ![Correlated event pivot](evidence/screenshots/17-misp-correlated-event-pivot.png) | ![Ransomware IP IOC search](evidence/screenshots/14-ransomware-ip-ioc-search.png) |
 
-- **MISP** — Threat intelligence management, IOC storage, object modeling, and correlation
-- **MITRE ATT&CK** — Adversary technique classification and investigation context
-- **GitHub** — Technical documentation, evidence management, and portfolio presentation
+| Phishing event linked to Spearphishing Link | Domain IOC validated (attribute + object) |
+|---|---|
+| ![Spearphishing Link correlation graph](evidence/screenshots/misp-correlation-graph-spearphishing-link.png) | ![Domain IOC search](evidence/screenshots/misp-ioc-domain-search-results.png) |
 
----
+All 28 screenshots are embedded and explained in the [project documentation](#project-documentation).
 
+## Phase 1: Phishing Investigation
 
-## Investigation Scenario
+### Indicators
 
-The simulated investigation centered on phishing infrastructure designed to represent an account-verification credential-harvesting campaign.
+| Type | Indicator | MISP category / type | Validation |
+|---|---|---|---|
+| Domain | `secure-login-support[.]com` | Network activity / `domain` | 2 records ✅ |
+| Destination IP | `198.51.100.23` | Network activity / `ip-dst` | 2 records ✅ |
+| URL | `hxxp://secure-login-support[.]com/account/verify` | Network activity / `url` | 1 record ✅ |
+| File hash | `275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f` | Payload delivery / `sha256` | 1 record ✅ |
 
-Four primary indicators were analyzed:
+The domain and IP return two records each because they exist both as standalone attributes and inside the `domain-ip` object. The hash is the **EICAR test file**, so it is safe to share and recognisable to any antivirus or intelligence platform.
 
-| IOC Type | Indicator | MISP Type |
-|---|---|---|
-| Domain | `secure-login-support.com` | `domain` |
-| Destination IP | `198.51.100.23` | `ip-dst` |
-| URL | `http://secure-login-support.com/account/verify` | `url` |
-| File Hash | `275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f` | `sha256` |
-
-The investigation was maintained as:
+### Event
 
 ```text
 Event:        SOC Investigation - Suspicious Phishing Infrastructure
-Threat Level: Medium
+Threat level: Medium
 Analysis:     Completed
+Galaxy:       Enterprise Attack - Attack Pattern: Spearphishing Link - T1192
 ```
 
----
+### MITRE ATT&CK Mapping
 
-## Investigation Workflow
+| As shown in MISP | Current ATT&CK | Why |
+|---|---|---|
+| `T1192` Spearphishing Link | `T1566.002` Phishing: Spearphishing Link | Direct successor; `T1192` was revoked in ATT&CK v7 |
+| | `T1598.003` Phishing for Information: Spearphishing Link | Best fit for a credential-harvesting `/account/verify` page |
 
-```text
-Phishing Scenario
-       |
-       v
-IOC Identification
-       |
-       +--> Domain
-       +--> Destination IP
-       +--> URL
-       +--> SHA-256
-       |
-       v
-MISP Event Creation
-       |
-       v
-IOC Classification
-       |
-       v
-Correlation Enabled
-       |
-       v
-domain-ip Object Modeling
-       |
-       v
-MITRE ATT&CK Mapping
-       |
-       v
-IOC Search & Validation
-       |
-       v
-Analyst Assessment
-```
+The lab's MISP galaxy predates the change, so the screenshot is kept as it was produced and the current IDs are documented alongside it.
 
----
+## Phase 2: OSINT Correlation and Operationalization
 
-## MISP Threat Intelligence Model
-
-Rather than maintaining only a flat IOC list, the investigation preserved relationships between the observed artifacts.
-
-```text
-                 Phishing Activity
-                        |
-          +-------------+-------------+
-          |             |             |
-          v             v             v
-       Domain          URL         SHA-256
-          |
-          v
-   Destination IP
-```
-
-The domain and destination IP were additionally modeled using a structured MISP `domain-ip` object.
-
----
-
-## MITRE ATT&CK Mapping
-
-The phishing behavior was associated with the MISP Enterprise ATT&CK Galaxy entry:
-
-**Spearphishing Link — T1192**
-
-The MISP environment used for this lab displayed the legacy `T1192` identifier. The project preserves the identifier shown by the lab environment rather than modifying historical evidence.
----
-
-## IOC Validation
-
-Each primary indicator was searched independently after being entered into MISP.
-
-| Indicator Type | Search Result | Status |
-|---|---:|---|
-| Domain | 2 records | ✅ Validated |
-| Destination IP | 2 records | ✅ Validated |
-| SHA-256 | 1 record | ✅ Validated |
-| URL | 1 record | ✅ Validated |
-
-The domain and destination IP return two records because each exists both as a standalone attribute and as a component of the structured `domain-ip` object.
-
-## Investigation Evidence
-
-The following evidence captures key stages of the MISP investigation, including ATT&CK mapping and IOC validation.
-
-### MITRE ATT&CK Correlation
-
-![MISP correlation graph showing Spearphishing Link T1192](evidence/screenshots/misp-correlation-graph-spearphishing-link.png)
-
-*MISP correlation graph associating the investigation with the MITRE ATT&CK Spearphishing Link technique (T1192).*
-
-### IOC Validation Evidence
-
-#### Domain
-
-![MISP domain IOC validation](evidence/screenshots/misp-ioc-domain-search-results.png)
-
-*Validation of the simulated phishing domain within the MISP attribute dataset.*
-
-#### Destination IP
-
-![MISP destination IP IOC validation](evidence/screenshots/misp-ioc-ip-search-results.png)
-
-*Validation of the documentation-range destination IP associated with the simulated phishing infrastructure.*
-
-#### SHA-256
-
-![MISP SHA-256 IOC validation](evidence/screenshots/misp-ioc-sha256-search-results.png)
-
-*Validation of the SHA-256 indicator representing the simulated malicious attachment.*
-
-#### URL
-
-![MISP URL IOC validation](evidence/screenshots/misp-ioc-url-search-results.png)
-
-*Validation of the simulated credential-harvesting URL recorded during the investigation.*
-
-> **Evidence Note:** Indicators shown in these screenshots are simulated or documentation-range artifacts used exclusively for defensive cybersecurity training.
-
----
-
-
-## Investigation Documentation
-
-Detailed analyst documentation is available in the `docs/` directory:
-
-| Document | Description |
+| Step | Result |
 |---|---|
-| [01 — Investigation Overview](docs/01-investigation-overview.md) | Scenario, scope, objectives, methodology, and intelligence model |
-| [02 — IOC Analysis](docs/02-ioc-analysis.md) | Domain, destination IP, URL, and SHA-256 analysis |
-| [03 — MISP Object Modeling](docs/03-misp-object-modeling.md) | Structured domain-to-IP relationship modeling |
-| [04 — MITRE ATT&CK Mapping](docs/04-mitre-attack-mapping.md) | ATT&CK Galaxy association and behavioral context |
-| [05 — IOC Validation](docs/05-ioc-validation.md) | IOC search, validation, and analyst pivot workflow |
-| [06 — Analyst Conclusion](docs/06-analyst-conclusion.md) | Findings, limitations, defensive recommendations, and final assessment |
-| [07 — MISP Threat Correlation](docs/07-misp-threat-correlation.md) | Locky ransomware investigation, IOC correlation, campaign pivoting, detection exports, and automation |
----
+| Ingest | Five OSINT feeds enabled and fetched; the event list filled with APT, malware and ransomware reports |
+| Investigate | Event `73`, *OSINT - Locky: the encryptor taking the world by storm* (CIRCL, TLP:white, ransomware tag), with an external report and four Locky registry keys |
+| Search | `%Locky%` attribute search across all events, then ransomware-tagged `domain`, `ip-dst` and `sha256` hunts |
+| Correlate | Shared download-location domains and IPs linked event `157` to several other events |
+| Pivot | Followed to event `150`, *Malspam 2016-06-23 (Locky)*, with 151 attributes and correlations to more than a dozen Locky malspam events |
+| Export | Event `150` exported as Suricata rules (HTTP, DNS and IP alerts) and as MISP JSON |
+| Automate | REST API `attributes/restSearch` and `events/restSearch` reviewed for SIEM and SOAR integration |
+
+## Tools & Technologies
+
+- **MISP 2.4.102:** events, attributes, objects, galaxies, correlation, feeds, graph views and exports.
+- **MISP OSINT feeds:** CIRCL OSINT, Botvrij.eu, inThreat, ZeuS IP and compromised-URL blocklists.
+- **MITRE ATT&CK:** technique mapping via the MISP Enterprise Attack galaxy.
+- **Suricata:** IDS rule format generated by MISP.
+- **MISP REST API:** `restSearch` for automated retrieval.
+- **CakePHP console:** MISP administration and worker management.
+
+## Investigation Flow
+
+```mermaid
+flowchart LR
+    subgraph P1["Phase 1 · Phishing event"]
+        A["Identify IOCs"] --> B["Create event<br/>classify attributes"]
+        B --> C["domain-ip object"]
+        C --> D["ATT&CK galaxy"]
+        D --> E["Validate by search"]
+    end
+    subgraph P2["Phase 2 · OSINT correlation"]
+        F["Enable feeds<br/>start workers"] --> G["Locky event 73"]
+        G --> H["Hunt ransomware IOCs"]
+        H --> I["Correlation<br/>pivot to event 150"]
+        I --> J["Export<br/>Suricata · JSON · API"]
+    end
+    E --> F
+```
+
+## How This Fits a SOC
+
+```text
+SIEM / EDR / email alert → extract IOC → search MISP
+    ├─ no match → enrich externally, add to MISP
+    └─ match    → review event → related IOCs → hunt telemetry → scope incident → block or detect
+```
+
+Threat intelligence is most useful when it enriches an alert and widens the hunt, not when it sits in a list.
+
+## Key Findings
+
+1. **Classification makes intelligence searchable.** Correct categories and types let every IOC be found and correlated.
+2. **Objects preserve relationships.** The `domain-ip` object keeps the link between the phishing domain and its host.
+3. **ATT&CK IDs change.** The galaxy shows `T1192`; current ATT&CK uses `T1566.002`, and `T1598.003` fits credential harvesting best.
+4. **Correlation exposes campaigns.** A single shared indicator connected a small Locky report to a large malspam event and a wider set of related campaigns.
+5. **Intelligence must be operational.** Exporting Suricata rules and JSON moves the work from analysis to detection.
 
 ## Repository Structure
 
 ```text
 misp-phishing-threat-intelligence-lab/
-│
 ├── README.md
 ├── LICENSE
-│
+├── assets/
+│   └── diagrams/
+│       └── misp-intelligence-workflow.svg
 ├── docs/
 │   ├── 01-investigation-overview.md
 │   ├── 02-ioc-analysis.md
@@ -247,274 +153,55 @@ misp-phishing-threat-intelligence-lab/
 │   ├── 05-ioc-validation.md
 │   ├── 06-analyst-conclusion.md
 │   └── 07-misp-threat-correlation.md
-│
 └── evidence/
     └── screenshots/
-        ├── 01-misp-baseurl-configuration-verification.png
-        ├── 02-misp-soc-lab-organization-configuration.png
-        ├── 03-misp-user-organization-management.png
-        ├── 04-misp-threat-feeds-enabled.png
-        ├── 05-misp-background-workers-started.png
-        ├── 06-misp-osint-threat-feed-ingestion-results.png
-        ├── 07-misp-locky-ransomware-event.png
-        ├── 08-misp-locky-event-iocs.png
-        ├── 09-misp-locky-correlation-graph.png
-        ├── 10-misp-locky-attack-matrix.png
-        ├── 11-misp-locky-correlation-graph.png
-        ├── 12-misp-locky-attribute-search.png
-        ├── 13-ransomware-domain-ioc-search.png
-        ├── 14-ransomware-ip-ioc-search.png
-        ├── 15-ransomware-sha256-ioc-search.png
-        ├── 16-ransomware-event-correlation.png
-        ├── 17-misp-correlated-event-pivot.png
-        ├── 18-misp-locky-correlation-graph.png
-        ├── 19-misp-ransomware-ioc-export-options.png
-        ├── 20-misp-suricata-detection-rule-export.png
-        ├── 21-misp-json-threat-intelligence-export.png
-        ├── 22-misp-rest-api-automation-interface.png
-        └── 23-misp-threat-intelligence-dashboard.png
+        ├── misp-*.png       # phase 1: ATT&CK graph and IOC validation (5)
+        └── 01–23-*.png      # phase 2: setup, Locky, hunting, correlation, exports (23)
 ```
 
----
+## Project Documentation
 
-## SOC Analyst Application
+| Phase | Document | Focus |
+|---|---|---|
+| 01 | [Investigation Overview](docs/01-investigation-overview.md) | Scenario, objectives, scope and methodology |
+| 02 | [IOC Analysis](docs/02-ioc-analysis.md) | Domain, IP, URL and SHA-256 analysis |
+| 03 | [MISP Object Modeling](docs/03-misp-object-modeling.md) | The `domain-ip` object |
+| 04 | [MITRE ATT&CK Mapping](docs/04-mitre-attack-mapping.md) | Galaxy link and current technique IDs |
+| 05 | [IOC Validation](docs/05-ioc-validation.md) | Search-based validation and pivoting |
+| 06 | [Analyst Conclusion](docs/06-analyst-conclusion.md) | Findings, limitations and recommendations |
+| 07 | [MISP Threat Correlation](docs/07-misp-threat-correlation.md) | Setup, feeds, Locky, correlation, pivoting, exports and API |
 
-The threat-intelligence workflow demonstrated in this lab can be integrated into operational SOC investigations. Analysts can extract indicators from SIEM, EDR, or email-security alerts and pivot into MISP to identify known infrastructure, related indicators, and additional investigative context.
+## How to Review
 
-```text
-SIEM / EDR / Email Alert
-          |
-          v
-      Extract IOC
-          |
-          v
-       Search MISP
-          |
-     +----+----+
-     |         |
- No Match     Match
-     |         |
-     v         v
- Enrich     Review Event
-               |
-               v
-         Related Indicators
-               |
-               v
-         Hunt Telemetry
-               |
-               v
-        Scope Incident
-               |
-               v
-       Defensive Action
-```
+1. **See the model:** [IOC Analysis](docs/02-ioc-analysis.md) and [Object Modeling](docs/03-misp-object-modeling.md) show how the phishing event was structured.
+2. **Check the ATT&CK reasoning:** [MITRE ATT&CK Mapping](docs/04-mitre-attack-mapping.md) explains the legacy ID and its current equivalents.
+3. **Follow the correlation:** [MISP Threat Correlation](docs/07-misp-threat-correlation.md) walks from feed ingestion through the Locky pivot to the Suricata export.
 
-This workflow demonstrates how threat intelligence can support alert enrichment and incident scoping rather than functioning solely as an IOC repository. By correlating observed indicators with existing intelligence, analysts can pivot across related infrastructure, identify additional artifacts, hunt for associated activity in security telemetry, and make more informed defensive decisions.
+## Skills Demonstrated
 
----
+- **Threat intelligence platforms:** MISP administration, feeds, workers and organisations.
+- **IOC management:** attribute categories, types, comments, correlation and IDS flags.
+- **Intelligence modeling:** MISP objects and galaxies.
+- **Threat hunting:** cross-event attribute searches by value, tag and type.
+- **Correlation analysis:** following shared indicators across events and reading correlation graphs.
+- **MITRE ATT&CK:** mapping with awareness of revoked and successor techniques.
+- **Detection engineering:** generating Suricata rules from intelligence.
+- **Automation:** MISP JSON and REST API for SIEM/SOAR integration.
+- **Safe indicator handling:** documentation-range IPs, defanging and EICAR as a safe hash.
 
-## Advanced MISP Threat Intelligence & Correlation Analysis
+## Roadmap
 
-Following the initial phishing IOC investigation, the lab was expanded into a broader threat-intelligence workflow using **MISP (Malware Information Sharing Platform)**.
-
-The objective was to move beyond manually documenting indicators and demonstrate how a SOC analyst can ingest external threat intelligence, investigate ransomware activity, correlate indicators across events, pivot into related campaigns, and operationalize intelligence for defensive monitoring.
-
-### Threat Intelligence Workflow
-
-The investigation followed the following workflow:
-
-**OSINT Threat Feeds → MISP Events → IOC Analysis → Threat Hunting → Correlation → Event Pivoting → Campaign Analysis → Detection Engineering → Automation**
-
-Key activities included:
-
-- Configuring and validating the MISP lab environment
-- Managing organizations and users
-- Enabling external OSINT threat-intelligence feeds
-- Starting MISP background workers
-- Ingesting external threat-intelligence events
-- Investigating Locky ransomware intelligence
-- Searching globally for ransomware-related IOCs
-- Hunting for malicious domains, IP addresses, and SHA-256 hashes
-- Correlating indicators across multiple MISP events
-- Pivoting between related Locky malspam campaigns
-- Visualizing threat relationships using MISP correlation graphs
-- Reviewing MITRE ATT&CK context
-- Exporting threat intelligence in machine-readable JSON
-- Generating Suricata IDS detection rules from MISP intelligence
-- Reviewing MISP REST API and automation capabilities
+- Update the MISP galaxies so the event shows `T1566.002` directly
+- Query the REST API from a Python script (PyMISP) and pipe matches into a SIEM
+- Load the exported Suricata rules into a sensor and test them against a PCAP
+- Add warninglists to suppress false positives such as common CDN domains
+- Publish the phishing event and add sightings to show IOC lifecycle
 
 ---
 
-### OSINT Threat Intelligence Ingestion
-
-External OSINT feeds were enabled and processed through MISP background workers, populating the platform with additional threat-intelligence events.
-
-![MISP OSINT threat feed ingestion](evidence/screenshots/06-misp-osint-threat-feed-ingestion-results.png)
-
-This transformed the lab from a manually created phishing investigation into a larger threat-intelligence environment containing malware, ransomware, threat-actor, and campaign intelligence.
-
----
-
-### Locky Ransomware Investigation
-
-An imported **Locky ransomware** intelligence event was selected for deeper analysis.
-
-![Locky ransomware event](evidence/screenshots/07-misp-locky-ransomware-event.png)
-
-The event contained structured threat context including malware classification, OSINT source information, TLP markings, and observable attributes.
-
-MISP's global attribute search was then used to identify additional Locky-related intelligence across the repository.
-
-![Locky attribute search](evidence/screenshots/12-misp-locky-attribute-search.png)
-
-This demonstrated how an analyst can pivot from a single threat-intelligence event into historical intelligence associated with the same malware family.
-
----
-
-### IOC Threat Hunting
-
-Ransomware-tagged intelligence was filtered by IOC type to identify actionable indicators including:
-
-- Domains
-- Destination IP addresses
-- SHA-256 file hashes
-
-![Ransomware domain IOC search](evidence/screenshots/13-ransomware-domain-ioc-search.png)
-
-These indicators could support DNS investigations, SIEM searches, firewall analysis, endpoint threat hunting, alert enrichment, and incident scoping.
-
----
-
-### Threat Correlation and Event Pivoting
-
-MISP automatically identified shared indicators across multiple ransomware-related events.
-
-![MISP ransomware event correlation](evidence/screenshots/16-misp-ransomware-event-correlation.png)
-
-A shared IOC was then used to pivot into a related **Locky malspam event**, exposing additional malicious infrastructure and event relationships.
-
-![MISP correlated event pivot](evidence/screenshots/17-misp-correlated-event-pivot.png)
-
-This demonstrates a practical CTI investigation pattern:
-
-**IOC → Correlation → Related Event → Additional IOCs → Broader Campaign Context**
-
----
-
-### Locky Campaign Correlation
-
-MISP's correlation graph was used to visualize relationships between the investigated Locky event, shared indicators, and related malspam campaigns.
-
-![Locky campaign correlation graph](evidence/screenshots/18-misp-locky-correlation-graph.png)
-
-Graph-based analysis exposed relationships that are difficult to identify when reviewing individual IOC tables and demonstrated how shared infrastructure can connect multiple threat-intelligence events.
-
----
-
-### Detection Engineering — Suricata Export
-
-Threat intelligence from the investigated ransomware event was exported as **Suricata IDS detection rules**.
-
-![MISP Suricata detection rule export](evidence/screenshots/20-misp-suricata-detection-rule-export.png)
-
-MISP translated IDS-enabled indicators into network detection signatures covering observables such as malicious IP addresses, domains, hostnames, and URLs.
-
-This demonstrates the operational workflow:
-
-**Threat Intelligence → IOC → Detection Rule → Network Monitoring**
-
----
-
-### Threat Intelligence Automation
-
-The investigated event was exported in structured MISP JSON format for machine-readable consumption.
-
-MISP's REST API and automation functionality was also reviewed to understand how threat-intelligence searches can be incorporated into automated security workflows.
-
-![MISP REST API automation interface](evidence/screenshots/22-misp-rest-api-automation-interface.png)
-
-Potential integration targets include:
-
-- SIEM platforms
-- SOAR workflows
-- Threat-hunting scripts
-- Detection pipelines
-- IOC enrichment systems
-- Network security monitoring
-- Other CTI platforms
-
-> **Security Note:** Authentication credentials and API keys are intentionally excluded from all published evidence.
-
----
-
-### SOC Analyst Takeaways
-
-This expanded MISP investigation demonstrates several skills relevant to SOC, Blue Team, and threat-intelligence roles:
-
-| Skill | Demonstrated Activity |
-|---|---|
-| Threat Intelligence | Ingested and analyzed external OSINT intelligence |
-| IOC Analysis | Investigated domains, IP addresses, hashes, URLs, and host artifacts |
-| Threat Hunting | Queried MISP globally for ransomware-related indicators |
-| Malware Intelligence | Investigated Locky ransomware activity |
-| IOC Correlation | Identified shared indicators across threat events |
-| Investigation Pivoting | Followed correlations into related Locky campaigns |
-| Threat Visualization | Analyzed MISP correlation graphs |
-| MITRE ATT&CK | Reviewed ATT&CK context and avoided unsupported mappings |
-| Detection Engineering | Generated Suricata IDS rules from threat intelligence |
-| Data Integration | Exported structured MISP JSON intelligence |
-| SOC Automation | Reviewed REST API-based threat-intelligence retrieval |
-
-### Investigation Documentation
-
-Detailed methodology, screenshots, analyst observations, and findings are available in:
-
-[`docs/07-misp-threat-correlation.md`](docs/07-misp-threat-correlation.md)
-
-The complete investigation evidence is maintained under:
-
-[`evidence/screenshots/`](evidence/screenshots/)
-
-## Key Takeaways
-
-This investigation demonstrated that effective threat intelligence requires more than collecting technical indicators. Individual IOCs become significantly more valuable when they are enriched with context, structured into relationships, correlated with other intelligence, and mapped to adversary behavior.
-
-Key analytical lessons from the investigation include:
-
-1. **Classification provides structure** — correctly typed domain, IP, URL, and file-hash attributes improve searching, correlation, and downstream analysis.
-2. **Context increases intelligence value** — analyst comments and event metadata explain why an indicator matters to the investigation.
-3. **Relationships reveal infrastructure** — MISP objects preserve connections between related artifacts, such as the relationship between a domain and its destination IP.
-4. **Correlation supports investigative pivoting** — searchable indicators allow analysts to identify related intelligence and pivot across potentially connected activity.
-5. **MITRE ATT&CK adds behavioral context** — mapping the phishing activity to Spearphishing Link (T1192, as represented in the lab environment) connects technical indicators with adversary behavior.
-6. **Validation improves investigative confidence** — independently searching recorded indicators verifies that the intelligence was successfully stored and remains available for future analysis.
-7. **Documentation makes intelligence reusable** — structured analyst findings allow investigation results to support future SOC investigations, threat hunting, detection engineering, and incident response.
-
-Together, these practices transform isolated technical artifacts into structured and reusable cyber threat intelligence.
-
----
-
-## Project Status
-
-**Investigation Complete ✅**
-
-| Investigation Phase | Status |
-|---|---|
-| IOC Collection | ✅ Complete |
-| MISP Classification | ✅ Complete |
-| Object Modeling | ✅ Complete |
-| IOC Correlation | ✅ Complete |
-| MITRE ATT&CK Mapping | ✅ Complete |
-| IOC Validation | ✅ Complete |
-| Analyst Assessment | ✅ Complete |
-| Documentation | ✅ Complete |
-
----
 ## Disclaimer
 
-This repository was created exclusively for cybersecurity education, defensive-security training, and portfolio development.
-
-All indicators and infrastructure represented in this project are simulated or documentation-range artifacts. No real organization, production environment, user, or malicious infrastructure was targeted.
+This repository was created for cybersecurity education, defensive training and portfolio development. Phase 1 indicators are simulated: the IP is from the RFC 5737 documentation range, the domain is fictional and defanged, and the hash is the harmless EICAR test file. Phase 2 uses public historical OSINT feeds. No real organisation, production environment or user was targeted, and authentication keys are redacted from all evidence.
 
 ---
 
@@ -522,26 +209,20 @@ All indicators and infrastructure represented in this project are simulated or d
 
 **Anik Nohan**
 
-This hands-on MISP Phishing Threat Intelligence Investigation was completed to demonstrate practical skills in:
+This lab was built to practise and demonstrate real-world SOC and CTI skills in:
 
-- Cyber Threat Intelligence (CTI) analysis
-- Phishing IOC investigation
-- MISP event and attribute management
-- IOC classification and validation
-- MISP object modeling
-- Threat infrastructure analysis
-- IOC correlation and investigative pivoting
-- OSINT threat intelligence ingestion
-- Ransomware threat hunting
+- Cyber threat intelligence analysis in MISP
+- IOC classification, modeling, correlation and validation
+- OSINT feed ingestion and ransomware threat hunting
 - MITRE ATT&CK mapping
-- Threat relationship visualization
-- Suricata detection-rule generation
-- MISP JSON intelligence export
-- REST API and security automation concepts
-- SOC and CTI investigation documentation
+- Detection-rule generation and intelligence automation
 
-### Tools & Frameworks
+Also see my **[Phishing Email Investigation Portfolio](https://github.com/aniknohan/phishing-email-investigation-soc-portfolio)**, **[Splunk SOC Analyst Detection Lab](https://github.com/aniknohan/splunk-soc-analyst-detection-lab)** and **[Report Writing Using Phishing Tools](https://github.com/aniknohan/report-writing-using-phishing-tools)**.
 
-`MISP` • `MITRE ATT&CK` • `Suricata` • `OSINT Threat Feeds` • `MISP REST API` • `GitHub`
+### Tools Used
 
----
+`MISP` • `OSINT Feeds` • `MITRE ATT&CK` • `Suricata` • `MISP REST API` • `GitHub`
+
+## License
+
+Released under the [MIT License](LICENSE).

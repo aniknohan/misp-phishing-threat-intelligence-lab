@@ -24,7 +24,7 @@ The phishing activity was mapped in MISP to:
 The simulated investigation centered on a phishing URL:
 
 ```text
-http://secure-login-support.com/account/verify
+hxxp://secure-login-support[.]com/account/verify
 ```
 
 The URL represents a credential-harvesting endpoint delivered as part of the simulated phishing scenario.
@@ -38,7 +38,7 @@ Phishing Message
 Malicious / Suspicious Link
        |
        v
-secure-login-support.com
+secure-login-support[.]com
        |
        v
 /account/verify
@@ -93,13 +93,13 @@ Without ATT&CK mapping, the investigation contains indicators such as:
 
 ```text
 Domain
-secure-login-support.com
+secure-login-support[.]com
 
 Destination IP
 198.51.100.23
 
 URL
-http://secure-login-support.com/account/verify
+hxxp://secure-login-support[.]com/account/verify
 
 SHA-256
 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f
@@ -135,7 +135,7 @@ The indicators contribute different pieces of context to the investigation:
 
 | Indicator | Analytical Role |
 |---|---|
-| `secure-login-support.com` | Simulated phishing infrastructure |
+| `secure-login-support[.]com` | Simulated phishing infrastructure |
 | `198.51.100.23` | Simulated destination infrastructure |
 | `/account/verify` URL | Credential-harvesting endpoint |
 | SHA-256 | Simulated malicious attachment indicator |
@@ -218,6 +218,10 @@ scenario documented in this investigation aligns more precisely with:
 
 This technique describes spearphishing links designed to elicit sensitive
 information, including credentials, from a target.
+
+For reference, MITRE revoked `T1192` in ATT&CK v7 (2020) and replaced it with
+**T1566.002 — Phishing: Spearphishing Link**, which is the direct successor.
+`T1598.003` is used above because this scenario's goal is credential collection.
 
 The legacy identifier shown in the MISP screenshot has been retained as
 original lab evidence, while the current ATT&CK mapping is documented here

@@ -12,6 +12,23 @@ The investigation demonstrates a practical SOC/CTI workflow:
 
 ---
 
+## 0. Lab Environment Setup
+
+Before the correlation work, the MISP instance (MISP 2.4.102) was configured as a working threat-intelligence platform.
+
+| Step | What was done | Evidence |
+|---|---|---|
+| Base URL | `MISP.baseurl` set to the lab address with the CakePHP console and verified in Server Settings | [01](../evidence/screenshots/01-misp-baseurl-configuration-verification.png) |
+| Organisation | Host organisation `SOC-Lab` (local, sector Cybersecurity, type SOC) configured | [02](../evidence/screenshots/02-misp-soc-lab-organization-configuration.png) |
+| Users | `admin` in SOC-Lab and a second `User`-role account in a separate `Security-Red-Team` organisation; auth keys redacted | [03](../evidence/screenshots/03-misp-user-organization-management.png) |
+| Feeds | Five OSINT feeds enabled: CIRCL OSINT, Botvrij.eu, inThreat OSINT, ZeuS IP blocklist and ZeuS compromised URL blocklist | [04](../evidence/screenshots/04-misp-threat-feeds-enabled.png) |
+| Workers | Background and scheduler workers restarted so feed jobs could run | [05](../evidence/screenshots/05-misp-background-workers-started.png) |
+| Ingestion | Feed data fetched; the event list filled with OSINT events (APT reports, Locky malspam, ransomware analyses) alongside the lab's own event `1` | [06](../evidence/screenshots/06-misp-osint-threat-feed-ingestion-results.png) |
+
+![MISP OSINT threat feed ingestion](../evidence/screenshots/06-misp-osint-threat-feed-ingestion-results.png)
+
+---
+
 ## 1. Locky Ransomware Intelligence
 
 After ingesting OSINT threat feeds into MISP, a Locky ransomware event was selected for deeper analysis.
@@ -309,7 +326,9 @@ REST API functionality allows MISP intelligence to be incorporated into automate
 
 Following threat-feed ingestion and analysis, the MISP environment contained a broader collection of structured threat intelligence.
 
-![MISP threat intelligence dashboard](../evidence/screenshots/23-misp-threat-intelligence-dashboard.png)
+![MISP event list with ATT&CK clusters](../evidence/screenshots/23-misp-event-list-sectorj04-attack-mapping.png)
+
+The event list shows the scale of the imported intelligence (19+ pages of events). The example shown, event `1116` *"SectorJ04 Group's Increased Activity in 2019"* (8,447 attributes, 5 correlations), carries a full set of MITRE ATT&CK attack-pattern clusters, including Spearphishing Attachment (T1193), Spearphishing Link (T1192), PowerShell (T1086) and Scheduled Task (T1053), plus a `threat-actor="SectorJ04"` galaxy tag.
 
 The repository contained OSINT events, malware intelligence, threat-actor context, tags, correlations, attributes, and MITRE ATT&CK mappings where available.
 

@@ -46,7 +46,7 @@ A successful result confirmed that the indicator was stored within MISP and coul
 ## Search Value
 
 ```text
-secure-login-support.com
+secure-login-support[.]com
 ```
 
 ## Expected Attribute Type
@@ -61,7 +61,7 @@ MISP successfully returned records associated with the simulated phishing invest
 
 ![MISP domain IOC search results](../evidence/screenshots/misp-ioc-domain-search-results.png)
 
-**Figure 1 — Domain IOC search results for `secure-login-support.com`.**
+**Figure 1 — Domain IOC search results for `secure-login-support[.]com`.**
 
 Two matching domain records are visible because the domain was represented both as an individual IOC attribute and as an attribute within the structured `domain-ip` object.
 
@@ -146,7 +146,7 @@ The file-based IOC was successfully recorded as a `sha256` attribute and could b
 ## Search Value
 
 ```text
-http://secure-login-support.com/account/verify
+hxxp://secure-login-support[.]com/account/verify
 ```
 
 ## Expected Attribute Type
@@ -177,7 +177,7 @@ The complete URL was successfully indexed and retrievable within MISP.
 
 | IOC | Type | Expected Results | Validation |
 |---|---|---:|---|
-| `secure-login-support.com` | `domain` | 2 | Successful |
+| `secure-login-support[.]com` | `domain` | 2 | Successful |
 | `198.51.100.23` | `ip-dst` | 2 | Successful |
 | SHA-256 attachment indicator | `sha256` | 1 | Successful |
 | Credential-harvesting URL | `url` | 1 | Successful |

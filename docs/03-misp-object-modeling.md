@@ -16,13 +16,13 @@ The following indicators were associated during the investigation:
 
 | Object Component | Value | MISP Type |
 |---|---|---|
-| Domain | `secure-login-support.com` | `domain` |
+| Domain | `secure-login-support[.]com` | `domain` |
 | Destination IP | `198.51.100.23` | `ip-dst` |
 
 The relationship can be represented conceptually as:
 
 ```text
-secure-login-support.com
+secure-login-support[.]com
           |
           v
     198.51.100.23
@@ -49,7 +49,7 @@ Phishing Infrastructure
         |
         +-- Domain
         |     |
-        |     +-- secure-login-support.com
+        |     +-- secure-login-support[.]com
         |
         +-- Destination IP
               |
@@ -65,7 +65,7 @@ The `domain-ip` object was configured with the following primary fields:
 ### Domain
 
 ```text
-secure-login-support.com
+secure-login-support[.]com
 ```
 
 MISP attribute type:
@@ -140,7 +140,7 @@ The domain-IP relationship forms part of the larger simulated attack chain:
 Phishing Activity
        |
        v
-secure-login-support.com
+secure-login-support[.]com
        |
        +--------------------+
        |                    |

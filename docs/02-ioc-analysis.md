@@ -12,9 +12,9 @@ Rather than treating each indicator independently, the indicators were analyzed 
 
 | IOC Type | Indicator | MISP Type | Assessment |
 |---|---|---|---|
-| Domain | `secure-login-support.com` | `domain` | Simulated phishing infrastructure |
+| Domain | `secure-login-support[.]com` | `domain` | Simulated phishing infrastructure |
 | Destination IP | `198.51.100.23` | `ip-dst` | Documentation-range infrastructure |
-| URL | `http://secure-login-support.com/account/verify` | `url` | Simulated credential-harvesting endpoint |
+| URL | `hxxp://secure-login-support[.]com/account/verify` | `url` | Simulated credential-harvesting endpoint |
 | File Hash | `275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f` | `sha256` | Simulated malicious attachment indicator |
 
 > **Safety Note:** These indicators were created or selected for defensive lab use. They should not be interpreted as evidence of active malicious infrastructure.
@@ -25,7 +25,7 @@ Rather than treating each indicator independently, the indicators were analyzed 
 
 ### Indicator
 
-`secure-login-support.com`
+`secure-login-support[.]com`
 
 ### MISP Classification
 
@@ -46,7 +46,7 @@ A MISP attribute search was performed to verify that the domain had been recorde
 ![MISP domain IOC search results](../evidence/screenshots/misp-ioc-domain-search-results.png)
 
 **Figure 1 — Domain IOC validation in MISP.**  
-The search confirms that `secure-login-support.com` is stored as a network-activity domain attribute within the investigation.
+The search confirms that `secure-login-support[.]com` is stored as a network-activity domain attribute within the investigation.
 
 ---
 
@@ -85,7 +85,7 @@ The search confirms the `198.51.100.23` destination-IP indicator recorded during
 
 ### Indicator
 
-`http://secure-login-support.com/account/verify`
+`hxxp://secure-login-support[.]com/account/verify`
 
 ### MISP Classification
 
@@ -126,6 +126,8 @@ The search verifies that the complete simulated credential-harvesting URL was re
 
 The SHA-256 value represents a simulated malicious attachment associated with the phishing investigation.
 
+The value is the SHA-256 of the **EICAR antivirus test file**, the industry-standard harmless file that security products are designed to detect. Using it keeps the lab safe while giving the indicator a real, verifiable hash: many threat-intelligence and antivirus platforms will flag it as `EICAR-Test-File`.
+
 Cryptographic hashes provide analysts with a stable method of identifying known file artifacts without relying solely on filenames, which attackers can easily modify.
 
 Within this lab, the hash demonstrates how file-based indicators can be documented alongside network indicators to provide broader investigative context.
@@ -146,7 +148,7 @@ The indicators collectively represent the following analytical chain:
 ```text
 Phishing Activity
        |
-       +--> secure-login-support.com
+       +--> secure-login-support[.]com
        |           |
        |           +--> 198.51.100.23
        |
