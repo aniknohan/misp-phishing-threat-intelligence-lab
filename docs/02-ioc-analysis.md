@@ -155,3 +155,8 @@ Phishing Activity
        +--> /account/verify
        |
        +--> SHA-256 file indicator
+```
+
+---
+
+Next: [MISP Object Modeling](03-misp-object-modeling.md)
